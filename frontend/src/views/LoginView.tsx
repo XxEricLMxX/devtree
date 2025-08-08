@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
 import type { LoginForm } from "../types";
 import axios, { isAxiosError } from "axios";
-import { toast } from "sonner";
 
 export default function LoginView() {
   const initialValues: LoginForm = {
@@ -23,7 +22,7 @@ export default function LoginView() {
         `${import.meta.env.VITE_API_URL}/auth/login`,
         formData
       );
-      toast.success(data);
+      localStorage.setItem("AUTH_TOKEN", data);
     } catch (error) {
       if (isAxiosError(error) && error.response) {
         console.log(error.response?.data.error);
