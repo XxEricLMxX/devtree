@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LoginView from './views/LoginView'
 import RegisterView from './views/RegisterView'
-import AuthLayout from './layouts/authLayout'
+import AuthLayout from './layouts/AuthLayout'
 
 export default function Router() {
 
