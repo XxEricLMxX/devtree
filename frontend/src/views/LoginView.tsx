@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
 import type { LoginForm } from "../types";
+import axios, { isAxiosError } from "axios";
+import { toast } from "sonner";
 
 export default function LoginView() {
   const initialValues: LoginForm = {
@@ -15,8 +17,18 @@ export default function LoginView() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const handleLogin = (formData: LoginForm) => {
-    console.log("Login data:", formData);
+  const handleLogin = async (formData: LoginForm) => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        formData
+      );
+      toast.success(data);
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        console.log(error.response?.data.error);
+      }
+    }
   };
   return (
     <>
